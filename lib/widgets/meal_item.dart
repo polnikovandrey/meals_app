@@ -37,8 +37,12 @@ class MealItem extends StatelessWidget {
                   bottom: 20,
                   right: 10,
                   child: Container(
-                    width: 220,
+                    width: 300,
                     color: Colors.black54,
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 5,
+                      horizontal: 20,
+                    ),
                     child: Text(
                       _meal.title,
                       style: const TextStyle(
@@ -52,10 +56,79 @@ class MealItem extends StatelessWidget {
                 )
               ],
             ),
+            Padding(
+              padding: const EdgeInsets.all(20),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Expanded(
+                    child: Row(
+                      children: [
+                        const Icon(Icons.schedule),
+                        const SizedBox(width: 6,),
+                        Text('${_meal.duration} min'),
+                      ],
+                    ),
+                  ),
+                  Expanded(
+                    child: Row(
+                      children: [
+                        const Icon(Icons.work),
+                        const SizedBox(width: 6,),
+                        Text(_complexityText),
+                      ],
+                    ),
+                  ),
+                  Expanded(
+                    child: Row(
+                      children: [
+                        const Icon(Icons.attach_money),
+                        const SizedBox(width: 6,),
+                        Text(_affordabilityText),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            )
           ],
         ),
       ),
     );
+  }
+
+  String get _complexityText {
+    switch(_meal.complexity) {
+      case MealComplexity.simple: {
+        return 'Simple';
+      }
+      case MealComplexity.hard: {
+        return 'Hard';
+      }
+      case MealComplexity.challenging: {
+        return 'Challenging';
+      }
+      default: {
+        return 'Unknown';
+      }
+    }
+  }
+
+  String get _affordabilityText {
+    switch(_meal.affordability) {
+      case MealAffordability.affordable: {
+        return 'Affordable';
+      }
+      case MealAffordability.pricey: {
+        return 'Pricey';
+      }
+      case MealAffordability.luxurious: {
+        return 'Luxurious';
+      }
+      default: {
+        return 'Unknown';
+      }
+    }
   }
 
   void _selectMeal() {}

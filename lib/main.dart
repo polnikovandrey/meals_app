@@ -22,9 +22,11 @@ class MyApp extends StatelessWidget {
         fontFamily: 'Raleway',
         textTheme: ThemeData.light().textTheme.copyWith(
           bodyText1: const TextStyle(
+            fontSize: 14,
             color: Color.fromRGBO(20, 51, 51, 1),
           ),
           bodyText2: const TextStyle(
+            fontSize: 12,
             color: Color.fromRGBO(20, 51, 51, 1),
           ),
           headline5: const TextStyle(
