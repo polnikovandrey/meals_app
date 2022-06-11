@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:meals_app/categories_screen.dart';
+import 'package:meals_app/category_meals_screen.dart';
 
 void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
+  static const categoriesRoutePath = '/categories';
   const MyApp({Key? key}) : super(key: key);
 
   @override
@@ -38,6 +40,9 @@ class MyApp extends StatelessWidget {
         ),
       ),
       home: const CategoriesScreen(),
+      routes: {
+        categoriesRoutePath: (ctx) => const CategoryMealsScreen(),
+      },
     );
   }
 }
