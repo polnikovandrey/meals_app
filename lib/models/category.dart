@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 
 class Category {
-  final String _id;
-  final String _title;
-  final Color _color;
+  final String id;
+  final String title;
+  final Color color;
 
-  const Category({required String id, required String title, Color color = Colors.orange})
-      : _id = id,
-        _title = title,
-        _color = color;
+  const Category({required this.id, required this.title, this.color = Colors.orange});
 }
