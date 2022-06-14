@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:meals_app/screens/meal_detail_screen.dart';
 
 import '../models/meal.dart';
 
 class MealItem extends StatelessWidget {
+  static const mealArgument = 'meal';
   final Meal _meal;
 
   const MealItem(this._meal, {Key? key}) : super(key: key);
@@ -10,7 +12,7 @@ class MealItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: _selectMeal,
+      onTap: () => _selectMeal(context),
       child: Card(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(15),
@@ -65,7 +67,9 @@ class MealItem extends StatelessWidget {
                     child: Row(
                       children: [
                         const Icon(Icons.schedule),
-                        const SizedBox(width: 6,),
+                        const SizedBox(
+                          width: 6,
+                        ),
                         Text('${_meal.duration} min'),
                       ],
                     ),
@@ -74,7 +78,9 @@ class MealItem extends StatelessWidget {
                     child: Row(
                       children: [
                         const Icon(Icons.work),
-                        const SizedBox(width: 6,),
+                        const SizedBox(
+                          width: 6,
+                        ),
                         Text(_complexityText),
                       ],
                     ),
@@ -83,7 +89,9 @@ class MealItem extends StatelessWidget {
                     child: Row(
                       children: [
                         const Icon(Icons.attach_money),
-                        const SizedBox(width: 6,),
+                        const SizedBox(
+                          width: 6,
+                        ),
                         Text(_affordabilityText),
                       ],
                     ),
@@ -98,38 +106,53 @@ class MealItem extends StatelessWidget {
   }
 
   String get _complexityText {
-    switch(_meal.complexity) {
-      case MealComplexity.simple: {
-        return 'Simple';
-      }
-      case MealComplexity.hard: {
-        return 'Hard';
-      }
-      case MealComplexity.challenging: {
-        return 'Challenging';
-      }
-      default: {
-        return 'Unknown';
-      }
+    switch (_meal.complexity) {
+      case MealComplexity.simple:
+        {
+          return 'Simple';
+        }
+      case MealComplexity.hard:
+        {
+          return 'Hard';
+        }
+      case MealComplexity.challenging:
+        {
+          return 'Challenging';
+        }
+      default:
+        {
+          return 'Unknown';
+        }
     }
   }
 
   String get _affordabilityText {
-    switch(_meal.affordability) {
-      case MealAffordability.affordable: {
-        return 'Affordable';
-      }
-      case MealAffordability.pricey: {
-        return 'Pricey';
-      }
-      case MealAffordability.luxurious: {
-        return 'Luxurious';
-      }
-      default: {
-        return 'Unknown';
-      }
+    switch (_meal.affordability) {
+      case MealAffordability.affordable:
+        {
+          return 'Affordable';
+        }
+      case MealAffordability.pricey:
+        {
+          return 'Pricey';
+        }
+      case MealAffordability.luxurious:
+        {
+          return 'Luxurious';
+        }
+      default:
+        {
+          return 'Unknown';
+        }
     }
   }
 
-  void _selectMeal() {}
+  void _selectMeal(BuildContext context) {
+    Navigator.of(context).pushNamed(
+      MealDetailScreen.routeName,
+      arguments: {
+        mealArgument: _meal,
+      },
+    );
+  }
 }
