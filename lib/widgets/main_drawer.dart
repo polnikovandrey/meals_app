@@ -26,8 +26,8 @@ class MainDrawer extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 20),
-          _createListTile(Icons.restaurant, 'Meals', () => Navigator.of(context).pushNamed(MyApp.routeName)),
-          _createListTile(Icons.settings, 'Filters', () => Navigator.of(context).pushNamed(FiltersScreen.routeName)),
+          _createListTile(Icons.restaurant, 'Meals', () => Navigator.of(context).pushReplacementNamed(MyApp.routeName)),
+          _createListTile(Icons.settings, 'Filters', () => Navigator.of(context).pushReplacementNamed(FiltersScreen.routeName)),
         ],
       ),
     );
