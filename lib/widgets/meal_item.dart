@@ -6,8 +6,9 @@ import '../models/meal.dart';
 class MealItem extends StatelessWidget {
   static const mealArgument = 'meal';
   final Meal _meal;
+  final void Function(String id) _removeItem;
 
-  const MealItem(this._meal, {Key? key}) : super(key: key);
+  const MealItem(this._meal, this._removeItem, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -153,6 +154,10 @@ class MealItem extends StatelessWidget {
       arguments: {
         mealArgument: _meal,
       },
-    );
+    ).then((result) {           // MealDetailScreen was closed.
+      if (result != null) {     // MealDetailScreen was closed with [ Navigator.of(context).pop(meal.id) ], so the result contains a meal id.
+        _removeItem(result as String);
+      }
+    });
   }
 }
