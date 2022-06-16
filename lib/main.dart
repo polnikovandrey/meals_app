@@ -27,6 +27,7 @@ class _MyAppState extends State<MyApp> {
     'vegetarian': false,
   };
   List<Meal> _availableMeals = dummyMeals;
+  List<Meal> _favoriteMeals = [];
 
   @override
   Widget build(BuildContext context) {
@@ -62,9 +63,9 @@ class _MyAppState extends State<MyApp> {
             ),
       ),
       routes: {
-        MyApp.routeName: (ctx) => const TabsScreen(),
+        MyApp.routeName: (ctx) => TabsScreen(_favoriteMeals),
         CategoryMealsScreen.routeName: (ctx) => CategoryMealsScreen(_availableMeals),
-        MealDetailScreen.routeName: (ctx) => const MealDetailScreen(),
+        MealDetailScreen.routeName: (ctx) => MealDetailScreen(_isMealFavorite, _toggleFavorite),
         FiltersScreen.routeName: (ctx) => FiltersScreen(_filters, _setFilters),
       },
       onUnknownRoute: (settings) {
@@ -84,5 +85,19 @@ class _MyAppState extends State<MyApp> {
               (!_filters['vegetarian']! || meal.vegetarian))
           .toList();
     });
+  }
+
+  void _toggleFavorite(Meal meal) {
+    setState(() {
+      if (_favoriteMeals.contains(meal)) {
+        _favoriteMeals.remove(meal);
+      } else {
+        _favoriteMeals.add(meal);
+      }
+    });
+  }
+
+  bool _isMealFavorite(Meal meal) {
+    return _favoriteMeals.contains(meal);
   }
 }

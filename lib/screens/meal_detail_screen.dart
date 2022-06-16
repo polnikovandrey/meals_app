@@ -6,7 +6,10 @@ import '../widgets/meal_item.dart';
 class MealDetailScreen extends StatelessWidget {
   static const routeName = '/detail-meal';
 
-  const MealDetailScreen({Key? key}) : super(key: key);
+  final bool Function(Meal meal) _isMealFavorite;
+  final void Function(Meal meal) _toggleFavorite;
+
+  const MealDetailScreen(this._isMealFavorite, this._toggleFavorite, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,6 +19,12 @@ class MealDetailScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(meal.title),
+        actions: [
+          IconButton(
+            onPressed: () => Navigator.of(context).pop(meal.id),
+            icon: const Icon(Icons.delete),
+          ),
+        ],
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -60,8 +69,9 @@ class MealDetailScreen extends StatelessWidget {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => Navigator.of(context).pop(meal.id),
-        child: const Icon(Icons.delete),
+        backgroundColor: Theme.of(context).colorScheme.primary,
+        onPressed: () => _toggleFavorite(meal),
+        child: Icon(_isMealFavorite(meal) ? Icons.star_border : Icons.star),
       ),
     );
   }
